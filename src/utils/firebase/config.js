@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDcinlcz5ibL2oNAoIY9WUSx9KHdSLuUDE",
-  authDomain: "events-faf59.firebaseapp.com",
-  projectId: "events-faf59",
-  storageBucket: "events-faf59.appspot.com",
-  messagingSenderId: "961244187432",
-  appId: "1:961244187432:web:8bb218222b0ae5383c5e1d",
-  measurementId: "G-STBG10MZ5W",
+  apiKey: import.meta.env.VITE_APIKEY,
+  authDomain: import.meta.env.VITE_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_PROJECTID,
+  storageBucket: import.meta.env.VITE_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_APPID,
+  measurementId: import.meta.env.VITE_MEASUREMENTID,
 };
 
 export const app = initializeApp(firebaseConfig);

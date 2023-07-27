@@ -1,21 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { app } from "@utils/firebase/config";
-import {
-  getFirestore,
-  collection,
-  doc,
-  addDoc,
-  getDocs,
-  getDoc,
-  deleteDoc,
-  setDoc,
-  Timestamp,
-} from "firebase/firestore/lite";
+import { Timestamp } from "firebase/firestore/lite";
 import EventCreateForm from "./EventCreateForm";
 import EventCard from "./EventCard";
+import { Event } from "../../services/event";
 
 //TODO:
-//put firebase functions in different files (firebase/services?)
 //add image + description for each event
 //add detailed view for each event
 //add routing (ssr? client?)
@@ -25,14 +15,11 @@ import EventCard from "./EventCard";
 
 function Events() {
   const [events, setEvents] = useState([]);
-  const db = getFirestore(app);
+  const eventService = new Event();
 
   async function createEvent(event) {
     try {
-      await addDoc(collection(db, "events"), {
-        ...event,
-      });
-      return true;
+      return eventService.createEvent(event);
     } catch (e) {
       console.log(e);
     }
@@ -40,14 +27,8 @@ function Events() {
 
   async function getEvents() {
     try {
-      const response = await getDocs(collection(db, "events"));
-      const events = response.docs.map((doc) => ({
-        id: doc.id,
-        data: doc.data(),
-      }));
+      const events = await eventService.getEvents();
       setEvents(events);
-      console.log(events);
-      return events;
     } catch (e) {
       console.log(e);
     }
@@ -55,14 +36,7 @@ function Events() {
 
   async function editEvent(eventId, event) {
     try {
-      const _event = await getDoc(doc(db, "events", eventId));
-      console.log(_event.data());
-      await setDoc(doc(db, "events", eventId), {
-        ..._event.data(),
-        ...event,
-      });
-      console.log("edit");
-      return true;
+      return eventService.editEvent(eventId, event);
     } catch (e) {
       console.log(e);
     }
@@ -70,9 +44,8 @@ function Events() {
 
   async function deleteEvent(eventId) {
     try {
-      await deleteDoc(doc(db, "events", eventId));
-      return Promise.resolve(true);
-    } catch (error) {
+      return eventService.deleteEvent(eventId);
+    } catch (e) {
       console.log(e);
     }
   }
@@ -85,7 +58,6 @@ function Events() {
       dateUpdated: Timestamp.now(),
     });
     if (edit) getEvents();
-    console.log("handleEdit", edit);
   }
 
   async function handleFormCreateEvent(e, { name, location, date }) {
