@@ -1,0 +1,32 @@
+html, body {
+  background-color: $white;
+  color: $ultra-violet;
+  font-family: $helvetica, $arial;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  input {
+    padding: 1rem;
+    border-radius: 1rem;
+    border-color: $amethyst;
+    border-width: 0.1rem;
+    border-style: solid;
+    outline: none;
+  }
+
+  button {
+    background-color: $amethyst;
+    min-width: 6rem;
+    padding: 1rem;
+    border: none;
+    color: $white;
+    outline: none;
+    border-radius: 1rem;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $ultra-violet;
+    }
+  }
+}
