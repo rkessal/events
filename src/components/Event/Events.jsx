@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { app } from "@utils/firebase/config";
 import { Timestamp } from "firebase/firestore/lite";
 import EventCreateForm from "./EventCreateForm";
 import EventCard from "./EventCard";
@@ -10,7 +9,6 @@ import { Event } from "../../services/event";
 //add detailed view for each event
 //add routing (ssr? client?)
 //add auth (firebase builtin auth)
-//styling (scss? tailwind?) + responsive
 //hosting (firebase hosting)
 
 function Events() {
@@ -62,7 +60,6 @@ function Events() {
 
   async function handleFormCreateEvent(e, { name, location, date }) {
     e.preventDefault();
-    console.log({ name, location });
     const event = await createEvent({
       name,
       location,
@@ -83,36 +80,38 @@ function Events() {
   }, []);
 
   return (
-    <>
-      <div>
-        <h1>Create event</h1>
-        <EventCreateForm
-          handleFormCreateEvent={(e, data) => handleFormCreateEvent(e, data)}
-        />
-      </div>
-      <div>
-        <h1>Events list</h1>
-        <div>
-          {events &&
-            events.map((event) => (
-              <div key={event.id}>
-                <EventCard
-                  handleEditEvent={(e, data) =>
-                    handleEditEvent(e, event.id, data)
-                  }
-                  handleDelete={() => handleDelete(event.id)}
-                  id={event.id}
-                  name={event.data.name}
-                  location={event.data.location}
-                  date={new Date(
-                    event.data.date.seconds * 1000
-                  ).toLocaleDateString("fr-FR")}
-                />
-              </div>
-            ))}
-        </div>
-      </div>
-    </>
+    <div className="events__container">
+      <section className="events__wrapper">
+        <article className="events__create__wrapper">
+          <h1>Create event</h1>
+          <EventCreateForm
+            handleFormCreateEvent={(e, data) => handleFormCreateEvent(e, data)}
+          />
+        </article>
+        <article className="events__list__wrapper">
+          <h1>Events list</h1>
+          <div className="events__list">
+            {events &&
+              events.map((event) => (
+                <div className="events__card" key={event.id}>
+                  <EventCard
+                    handleEditEvent={(e, data) =>
+                      handleEditEvent(e, event.id, data)
+                    }
+                    handleDelete={() => handleDelete(event.id)}
+                    id={event.id}
+                    name={event.data.name}
+                    location={event.data.location}
+                    date={new Date(
+                      event.data.date.seconds * 1000
+                    ).toLocaleDateString("fr-FR")}
+                  />
+                </div>
+              ))}
+          </div>
+        </article>
+      </section>
+    </div>
   );
 }
 

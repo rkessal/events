@@ -5,10 +5,14 @@ function EventCreateForm({ handleFormCreateEvent }) {
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
   return (
-    <form onSubmit={(e) => handleFormCreateEvent(e, { name, location, date })}>
+    <form
+      className="events__create"
+      onSubmit={(e) => handleFormCreateEvent(e, { name, location, date })}
+    >
       <div>
         <label htmlFor="name">Name</label>
         <input
+          autoComplete="off"
           id="name"
           type="text"
           value={name}
@@ -18,6 +22,7 @@ function EventCreateForm({ handleFormCreateEvent }) {
       <div>
         <label htmlFor="location">Location</label>
         <input
+          autoComplete="off"
           id="location"
           type="text"
           value={location}
@@ -27,6 +32,7 @@ function EventCreateForm({ handleFormCreateEvent }) {
       <div>
         <label htmlFor="date">Date</label>
         <input
+          autoComplete="off"
           id="date"
           type="date"
           value={date}
