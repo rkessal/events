@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Timestamp } from "firebase/firestore/lite";
 import EventCreateForm from "./EventCreateForm";
 import EventCard from "./EventCard";
-import { Event } from "../../services/event";
+import { Event } from "@services/event";
 
 //TODO:
 //add image + description for each event
 //add detailed view for each event
-//add routing (ssr? client?)
-//add auth (firebase builtin auth)
-//hosting (firebase hosting)
 
 function Events() {
   const [events, setEvents] = useState([]);
@@ -74,7 +71,6 @@ function Events() {
     const response = await deleteEvent(id);
     if (response) getEvents();
   }
-
   useEffect(() => {
     getEvents();
   }, []);

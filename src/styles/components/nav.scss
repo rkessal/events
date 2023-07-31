@@ -1,0 +1,22 @@
+.header__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5rem;
+
+  .header__logo {
+    font-weight: 600;
+    font-size: 2rem;
+  }
+
+  .header__links {
+    ul {
+      display: flex;
+      flex-direction: row;
+      justify-content: end;
+      align-items: center;
+      gap: 2rem;
+    }
+  }
+}
