@@ -12,25 +12,9 @@
     .events__create__wrapper {
       max-width: 31.2rem;
       width: 100%;
+
       .events__create {
-        div {
-          display: flex;
-          flex-direction: column;
-          align-items: left;
-
-
-        &:not(:last-child) {
-          margin-bottom: 1rem;
-        }
-         &:last-child {
-          margin-top: 2rem;
-         }
-
-        }
-
-        label {
-          margin-bottom: 0.2rem;
-        }
+        @extend %form
       }
     }
     .events__list__wrapper {
